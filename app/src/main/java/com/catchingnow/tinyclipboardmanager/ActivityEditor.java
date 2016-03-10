@@ -22,6 +22,7 @@ public class ActivityEditor extends MyActionBarActivity {
 
     private String oldText;
     private EditText editText;
+    private EditText labelText;
     private boolean isStarred;
     private MenuItem starItem;
     private ImageButton mFAB;
@@ -41,9 +42,17 @@ public class ActivityEditor extends MyActionBarActivity {
         }
 
         editText = (EditText) findViewById(R.id.edit_text);
+        // MehrunesTenets - initialized labelText
+        labelText = (EditText)findViewById(R.id.edit_label);
+
         mFAB = (ImageButton) findViewById(R.id.main_fab);
         mToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         editText.setText(oldText);
+
+        // MehrunesTenets - testing setting the text to ensure that it works as I expect
+        labelText.setText("This is just a test");
+
+
         editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -83,11 +92,15 @@ public class ActivityEditor extends MyActionBarActivity {
         setStarredIcon();
     }
 
+    // TODO need to develop this for labelText as well - check if done right
     @Override
     protected void onPause() {
         super.onPause();
         inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+        // MehrunesTenets - going to do the same thing for labelText
+        // Think this is to hide the text field, but unsure
+        inputMethodManager.hideSoftInputFromWindow(labelText.getWindowToken(), 0);
     }
 
     @Override
@@ -162,6 +175,7 @@ public class ActivityEditor extends MyActionBarActivity {
         finishAndRemoveTaskWithToast(getString(R.string.toast_deleted));
     }
 
+    // TODO have to develop this for the label as well (or decide not to)
     private void shareText() {
         String text = editText.getText().toString();
         Intent openIntent = new Intent(this, ClipObjectActionBridge.class);
@@ -170,6 +184,7 @@ public class ActivityEditor extends MyActionBarActivity {
         startService(openIntent);
     }
 
+    // TODO don't think this needs to be changed for labelText
     private void saveText() {
         String newText = editText.getText().toString();
         String toastMessage;
