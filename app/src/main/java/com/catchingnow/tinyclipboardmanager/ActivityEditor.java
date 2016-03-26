@@ -140,6 +140,8 @@ public class ActivityEditor extends MyActionBarActivity {
                 break;
             case (R.id.action_save):
                 saveText();
+            case (R.id.action_comment):
+                //open a new page/ activity
         }
         return super.onOptionsItemSelected(item);
     }

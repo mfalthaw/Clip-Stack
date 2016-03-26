@@ -231,7 +231,7 @@ public class SwipeableRecyclerViewTouchListener implements RecyclerView.OnItemTo
                 boolean dismiss = false;
                 boolean dismissRight = false;
                 if (Math.abs(mFinalDelta) > mViewWidth / 2 && mSwiping) {
-                    // Add if statement to run our own code:
+                    // Add if statement to run comment activity on swipe left:
                     if (mFinalDelta > 0) {
                         // This should open up our new activity
                     }   else {
