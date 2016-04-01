@@ -41,3 +41,6 @@ app/*.apk
 .Spotlight-V100
 .Trashes
 ehthumbs.db
+
+#iml file
+app/app.iml
