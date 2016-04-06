@@ -9,6 +9,7 @@ import java.util.Date;
 public class ClipObject {
 
     public final static String markStar = "☆★☆";
+    public static int clipCount = 0;
 
     protected String text;
     protected Date date;
@@ -21,21 +22,44 @@ public class ClipObject {
     ///////////////////////////////////
 
     public ClipObject(String text, Date date) {
+       clipCount++;
         this.text = text;
         this.date = date;
         this.star = false;
-        this.label = "Test Label";
+        this.label = "Clip #" + clipCount;
         this.comment = "Test Comment";
         this.tags = new ArrayList<>();
     }
     public ClipObject(String text, Date date, boolean star) {
+        clipCount++; /*Added by 401*/
         this.text = text;
         this.date = date;
         this.star = star;
-        this.label = "Test Label Star";
+        this.label = "Clip #" + clipCount; /*Added by 401*/
         this.comment = "Test Comment Star";
         this.tags = new ArrayList<>();
     }
+    //Added by 401
+    public ClipObject(String text, Date date, boolean star, String comment, String label, ArrayList<String> tags ) {
+        this.text = text;
+        this.date = date;
+        this.star = star;
+        this.label = label;
+        this.comment = comment;
+        this.tags = tags;
+    }
+    //////////////////////////////////////////////////////
+    //Added by 401
+    public ClipObject(String text, Date date, boolean star, String comment, String label) {
+        this.text = text;
+        this.date = date;
+        this.star = star;
+        this.label = label;
+        this.comment = comment;
+        //this.tags = tags;
+    }
+    //////////////////////////////////////////////////////
+
     public String getText() {
         return text;
     }
@@ -50,7 +74,7 @@ public class ClipObject {
         return this;
     }
 
-    // Added by mehrunestenets
+    // Added by 401
     public String getLabel()    { return label; }
     public String getComment()  { return comment; }
     public ArrayList<String> getTags() { return tags; }

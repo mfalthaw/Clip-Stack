@@ -8,11 +8,15 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Created by mehrunestenets on 2016-03-22.
  */
 public class ActivityDescriptionEditor extends MyActionBarActivity {
 
+    private String oldText;
     private String oldComment;
     private String oldLabel;
     private String oldTag;
@@ -30,6 +34,7 @@ public class ActivityDescriptionEditor extends MyActionBarActivity {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
+        oldText = intent.getStringExtra(Intent.EXTRA_TEXT);
         oldComment = intent.getStringExtra(Intent.EXTRA_TEXT);
         oldLabel = intent.getStringExtra(Intent.EXTRA_TEXT);
         oldTag = intent.getStringExtra(Intent.EXTRA_TEXT);
@@ -45,6 +50,10 @@ public class ActivityDescriptionEditor extends MyActionBarActivity {
         mFAB = (ImageButton) findViewById(R.id.main_fab);
         db = Storage.getInstance(this);
 
+        editComment.setText(oldComment);
+        editLabel.setText(oldLabel);
+        editTags.setText(oldTag);
+
     }
 
     public void saveThreeTextsOnClick(View view) {
@@ -56,11 +65,21 @@ public class ActivityDescriptionEditor extends MyActionBarActivity {
         String newLabel = editLabel.getText().toString();
         String newTag = editTags.getText().toString();
 
+        ArrayList<String> newTagArray = new ArrayList<String>(Arrays.asList(newTag.split(" , ")));
+
         String toastMessage = "Temporary Toast";
 
         editTags.setText(newTag);
         editLabel.setText(newLabel);
         editComment.setText(newComment);
+
+        db.modifyClipTagsCommentLabel(oldText, newComment, newLabel, newTagArray, (isStarred ? 1 : -1));
+
+        if (newComment!=oldComment || newLabel!=oldLabel || newTag!=oldTag) {
+            toastMessage = getString(R.string.toast_updated);
+        } else {
+            toastMessage = getString(R.string.toast_no_change);
+        }
 
         finishAndRemoveTaskWithToast(toastMessage);
     }
